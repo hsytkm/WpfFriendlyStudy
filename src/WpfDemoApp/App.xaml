@@ -1,0 +1,37 @@
+﻿<Application
+    x:Class="WpfDemoApp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WpfDemoApp"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    StartupUri="Views/MainWindow.xaml">
+
+    <Application.Resources>
+        <ObjectDataProvider
+            x:Key="JobProvider"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:Enums+Job" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <DataTemplate x:Key="EnumDescriptionTemplate">
+            <TextBlock Margin="0" Text="{Binding ., Converter={x:Static local:EnumDescriptionConverter.Shared}}" />
+        </DataTemplate>
+
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Margin" Value="0,10" />
+            <Setter Property="ItemTemplate" Value="{StaticResource EnumDescriptionTemplate}" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0,10,20,10" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="0,10" />
+        </Style>
+    </Application.Resources>
+</Application>
