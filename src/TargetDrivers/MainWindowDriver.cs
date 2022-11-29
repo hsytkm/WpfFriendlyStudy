@@ -11,6 +11,7 @@ public sealed class MainWindowDriver
     public WPFTextBox Name { get; }
     public WPFComboBox Job { get; }
     public WPFTextBox Mp { get; }
+    public WPFToggleButton HasMp { get; }
     public WPFButtonBase SaveFile { get; }
 
     public MainWindowDriver(AppVar windowObject)
@@ -22,6 +23,7 @@ public sealed class MainWindowDriver
         Name = new WPFTextBox(logicalTree.ByType<TextBox>().ByBinding("Name").Single());
         Job = new WPFComboBox(logicalTree.ByType<ComboBox>().ByBinding("SelectedJob").Single());
         Mp = new WPFTextBox(logicalTree.ByType<TextBox>().ByBinding("MpText").Single());
+        HasMp = new WPFToggleButton(logicalTree.ByType<CheckBox>().ByBinding("RequireMp").Single());
 
         // dynamic で取得することもできる(けどちょっとキモー)
         //Name = logicalTree.ByType<TextBox>().ByBinding("Name").Single().Dynamic();

@@ -22,14 +22,19 @@ internal sealed class MainWindowViewModel : BindableBase
         {
             if (SetProperty(ref _selectedJob, value))
             {
-                NotifyPropertyChanged(nameof(RequireMp));
+                RequireMp = SelectedJob.HasMp();
                 SaveFileCommand.UpdateCanExecute();
             }
         }
     }
     Enums.Job _selectedJob = Enums.Job.Warrior;
 
-    public bool RequireMp => Player.RequireMp(SelectedJob);
+    public bool RequireMp
+    {
+        get => _requireMp;
+        set => SetProperty(ref _requireMp, value);
+    }
+    bool _requireMp;
 
     public string MpText
     {

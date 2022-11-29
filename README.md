@@ -9,7 +9,7 @@
 
 ## Friendly 前提
 
-- Friendly のサポート対象は .NETFw のみっぽいです。（[作者様のブログ](https://ishikawa-tatsuya.hatenablog.com/entry/2019/08/20/163402) を見ると .NET も対応されてるようですが、 Nuget パッケージは .NETFw しか対応していないようです。 .NET に導入すると [NU1701](https://learn.microsoft.com/ja-jp/nuget/reference/errors-and-warnings/nu1701) 警告が表示されます）
+- Friendly のサポート対象は .NETFw のみっぽいです。（[作者様のブログ](https://ishikawa-tatsuya.hatenablog.com/entry/2019/08/20/163402) を見ると .NET も対応されてるようですが、 Nuget パッケージは .NETFw しか対応していないようです。 .NET に導入すると [NU1701](https://learn.microsoft.com/ja-jp/nuget/reference/errors-and-warnings/nu1701) 警告が表示されます。 *.csproj に `<NoWarn>NU1701</NoWarn>` で抑制できます。）
 - テスト対象プロジェクトは .NETFw じゃなくてもOKです。（.NET7 ₊ WPF のテストを確認済み）
 
 ## テストフレームワークの選択
@@ -36,7 +36,7 @@
 | Nunit (3.13.3)          | OK                        |
 | Xunit (2.4.2)           | OK                        |
 
-**.NET Fw なら Nunit、 .NET なら Nunit もしくは Xunit が良いように思いました。**
+.NETFw, .NET の両方で使用できる Nunit が良いように思いましたが、 ビジネスロジック部を Xunit でテストするのであれば Xunit に統一した方が捗りそうです。
 
 ## テストの実行
 

@@ -14,4 +14,10 @@ internal static class Enums
         //[Description("💰")]
         //Merchant,
     };
+
+    internal static bool HasMp(this Job job) => job switch
+    {
+        Job.Wizard => true,
+        _ => false
+    };
 }

@@ -47,7 +47,11 @@ public class UITest
 
         _driver.Name.EmulateChangeText("1234");
         _driver.Job.EmulateChangeSelectedIndex(1);  // Warrior
-        Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+            Assert.That(_driver.HasMp.IsChecked, Is.False);
+        });
 
         // Name が空はNG
         _driver.Name.EmulateChangeText("");
@@ -64,7 +68,11 @@ public class UITest
 
         // Wizard で MP が設定されていればOK
         _driver.Mp.EmulateChangeText("999");
-        Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+            Assert.That(_driver.HasMp.IsChecked, Is.True);
+        });
 
         // Wizard の MP は半角数値以外NG
         _driver.Mp.EmulateChangeText("１");

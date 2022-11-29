@@ -20,7 +20,7 @@ internal sealed class Player
             if (Job is Enums.Job.NotImplemented)
                 return false;
 
-            if (RequireMp())
+            if (HasMp)
             {
                 // 1~999
                 if (Mp is < 1 or > 999)
@@ -30,20 +30,14 @@ internal sealed class Player
         }
     }
 
-    public static bool RequireMp(Enums.Job job) => job switch
-    {
-        Enums.Job.Wizard => true,
-        _ => false
-    };
-
-    bool RequireMp() => RequireMp(Job);
+    public bool HasMp => Job.HasMp();
 
     public string ToText()
     {
         StringBuilder sb = new();
         sb.AppendLine(Name);
         sb.AppendLine(((int)Job).ToString());
-        if (RequireMp())
+        if (HasMp)
             sb.AppendLine(Mp.ToString());
         return sb.ToString();
     }
