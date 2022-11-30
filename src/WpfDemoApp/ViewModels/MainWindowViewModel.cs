@@ -52,6 +52,14 @@ internal sealed class MainWindowViewModel : BindableBase
     public DelegateCommand SaveFileCommand => _saveFileCommand ??= new(SaveFile, CanSaveFile);
     DelegateCommand? _saveFileCommand;
 
+
+    public string Base64String
+    {
+        get => _base64String;
+        set => SetProperty(ref _base64String, value);
+    }
+    string _base64String = "";
+
     void SaveFile()
     {
         var dialog = new Microsoft.Win32.SaveFileDialog
@@ -64,7 +72,10 @@ internal sealed class MainWindowViewModel : BindableBase
         if (result.HasValue && result.Value && dialog.FileName is string saveFilePath)
         {
             if (CreatePlayer() is Player player)
+            {
                 player.Save(saveFilePath);
+                Base64String = player.ToBase64();
+            }
         }
     }
 

@@ -13,6 +13,7 @@ public sealed class MainWindowDriver
     public WPFTextBox Mp { get; }
     public WPFToggleButton HasMp { get; }
     public WPFButtonBase SaveFile { get; }
+    public WPFTextBlock Base64 { get; }
 
     public MainWindowDriver(AppVar windowObject)
     {
@@ -29,5 +30,6 @@ public sealed class MainWindowDriver
         //Name = logicalTree.ByType<TextBox>().ByBinding("Name").Single().Dynamic();
 
         SaveFile = new WPFButtonBase(logicalTree.ByType<Button>().Single());
+        Base64 = new WPFTextBlock(logicalTree.ByType<TextBlock>().ByBinding("Base64String").Single());
     }
 }

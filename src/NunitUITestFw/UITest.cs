@@ -47,11 +47,8 @@ public class UITest
 
         _driver.Name.EmulateChangeText("1234");
         _driver.Job.EmulateChangeSelectedIndex(1);  // Warrior
-        Assert.Multiple(() =>
-        {
-            Assert.That(_driver.SaveFile.IsEnabled, Is.True);
-            Assert.That(_driver.HasMp.IsChecked, Is.False);
-        });
+        Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+        Assert.That(_driver.HasMp.IsChecked, Is.False);
 
         // Name が空はNG
         _driver.Name.EmulateChangeText("");
@@ -68,11 +65,8 @@ public class UITest
 
         // Wizard で MP が設定されていればOK
         _driver.Mp.EmulateChangeText("999");
-        Assert.Multiple(() =>
-        {
-            Assert.That(_driver.SaveFile.IsEnabled, Is.True);
-            Assert.That(_driver.HasMp.IsChecked, Is.True);
-        });
+        Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+        Assert.That(_driver.HasMp.IsChecked, Is.True);
 
         // Wizard の MP は半角数値以外NG
         _driver.Mp.EmulateChangeText("１");
@@ -101,6 +95,9 @@ public class UITest
         saveDialog.FilePathComboBox.EmulateChangeEditText(saveFilePath);
         saveDialog.SaveButton.EmulateClick();
         Thread.Sleep(500);          // ファイル保存待ち
+
+        // UI表示テキスト
+        Assert.That(_driver.Base64.Text, Is.EqualTo(expected));
 
         // ファイル読み出しテスト
         var actual = File.ReadAllText(saveFilePath);
