@@ -45,7 +45,7 @@ public class UITest
         // 起動直後は妥当性のある設定
         Assert.That(_driver.SaveFile.IsEnabled, Is.True);
 
-        _driver.Name.EmulateChangeText("1234");
+        _driver.Name.EmulateChangeText("abcd");
         _driver.Job.EmulateChangeSelectedIndex(1);  // Warrior
         Assert.That(_driver.SaveFile.IsEnabled, Is.True);
         Assert.That(_driver.HasMp.IsChecked, Is.False);
@@ -55,7 +55,7 @@ public class UITest
         Assert.That(_driver.SaveFile.IsEnabled, Is.False);
 
         // Name は4文字までOK
-        _driver.Name.EmulateChangeText("1234");
+        _driver.Name.EmulateChangeText("ABCD");
         Assert.That(_driver.SaveFile.IsEnabled, Is.True);
 
         // Wizard は MP が1以上でないとNG
@@ -76,6 +76,22 @@ public class UITest
         _driver.Mp.EmulateChangeText("foge");
         _driver.Job.EmulateChangeSelectedIndex(1);  // Warrior
         Assert.That(_driver.SaveFile.IsEnabled, Is.True);
+    }
+
+    [Test]
+    public void InputNameMaxLength()
+    {
+        const int maxLength = 4;
+        const string text = "1234567890";
+
+        // WPFTextBox.EmulateChangeText() を使うと MaxLength を超えた文字列を入力できてしまうので、
+        // キーエミューレトによりチェックします
+        _driver.Name.EmulateChangeText(text);   // これだとダメ
+        _driver.Name.EmulateChangeText("");
+        System.Windows.Forms.SendKeys.SendWait(text);
+
+        string expected = text.Substring(0, maxLength);
+        Assert.That(_driver.Name.Text, Is.EqualTo(expected));
     }
 
     [Test]
